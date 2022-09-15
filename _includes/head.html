@@ -1,0 +1,7 @@
+<head>
+  {% include partials/meta.html content:content %}
+
+  <link rel="stylesheet" href="{{ "/assets/css/main.css" | append: '?v=20180204'}}">
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: config.url }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feeds/rss.xml" | prepend: config.url }}">
+</head>
