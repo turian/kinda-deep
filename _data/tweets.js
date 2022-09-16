@@ -23,8 +23,9 @@ const getOembed = (screenName, tweetData) => {
       }
       
       try {
-        // const tweet = {}
-        const tweet = JSON.parse({html: body})
+        return resolve({});
+        const tweet = JSON.parse(body)
+        console.log(tweet);
         const signature = `&mdash; ${tweet.author_name} (@${screenName})`
         const signaturePosition = tweet.html.indexOf(signature)
   
