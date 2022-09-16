@@ -42,8 +42,6 @@ const getOembed = (screenName, tweetData) => {
 module.exports = () => {
   const fullCachePath = path.resolve(CACHE_PATH)
 
-  console.log(fullCachePath)
-
   try {
     const tweets = require(fullCachePath)
 
@@ -64,8 +62,7 @@ module.exports = () => {
       url: 'https://api.twitter.com/oauth2/token'
     }, (err, response, body) => {
       if (err) {
-        return resolve(`RESOLVE`);
-        // return reject(err)
+        return reject(err)
       }
 
       const parsedBody = JSON.parse(body)
