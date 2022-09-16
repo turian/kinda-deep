@@ -23,18 +23,18 @@ const getOembed = (screenName, tweetData) => {
       }
       
       try {
-        // const tweet = JSON.parse('')
-        const tweet = JSON.parse({html: body})
-        const signature = `&mdash; ${tweet.author_name} (@${screenName})`
-        const signaturePosition = tweet.html.indexOf(signature)
+        const tweet = {}
+        // const tweet = JSON.parse({html: body})
+        // const signature = `&mdash; ${tweet.author_name} (@${screenName})`
+        // const signaturePosition = tweet.html.indexOf(signature)
   
-        console.log(JSON.stringify(tweetData))
+        // console.log(JSON.stringify(tweetData))
   
-        tweet._date = tweetData.created_at
-        tweet._url = `https://twitter.com/${screenName}/status/${tweetId}`
-        tweet.html = signaturePosition > 0
-          ? tweet.html.slice(0, signaturePosition)
-          : tweet.html
+        // tweet._date = tweetData.created_at
+        // tweet._url = `https://twitter.com/${screenName}/status/${tweetId}`
+        // tweet.html = signaturePosition > 0
+        //   ? tweet.html.slice(0, signaturePosition)
+        //   : tweet.html
   
         resolve(tweet)  
       }
