@@ -19,8 +19,7 @@ const getOembed = (screenName, tweetData) => {
       url: `https://publish.twitter.com/oembed?url=https%3A%2F%2Ftwitter.com%2F${screenName}%2Fstatus%2F${tweetId}&omit_script=true`
     }, (err, response, body) => {
       if (err) {
-        return resolve(`RESOLVE`);
-        // return reject(err)
+        return reject(err)
       }
 
       const tweet = JSON.parse(body)
@@ -63,7 +62,8 @@ module.exports = () => {
       url: 'https://api.twitter.com/oauth2/token'
     }, (err, response, body) => {
       if (err) {
-        return reject(err)
+        return resolve(`RESOLVE`);
+        // return reject(err)
       }
 
       const parsedBody = JSON.parse(body)
