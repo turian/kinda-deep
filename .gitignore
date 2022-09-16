@@ -8,3 +8,6 @@ CNAME
 
 # Local Netlify folder
 .netlify
+
+# vim
+*.sw?
