@@ -21,20 +21,27 @@ const getOembed = (screenName, tweetData) => {
       if (err) {
         return reject(err)
       }
-
-      const tweet = JSON.parse(body)
-      const signature = `&mdash; ${tweet.author_name} (@${screenName})`
-      const signaturePosition = tweet.html.indexOf(signature)
-
-      console.log(JSON.stringify(tweetData))
-
-      tweet._date = tweetData.created_at
-      tweet._url = `https://twitter.com/${screenName}/status/${tweetId}`
-      tweet.html = signaturePosition > 0
-        ? tweet.html.slice(0, signaturePosition)
-        : tweet.html
-
-      resolve(tweet)
+      
+      try {
+        return resolve({});
+        const tweet = JSON.parse(body)
+        console.log(tweet);
+        const signature = `&mdash; ${tweet.author_name} (@${screenName})`
+        const signaturePosition = tweet.html.indexOf(signature)
+  
+        console.log(JSON.stringify(tweetData))
+  
+        tweet._date = tweetData.created_at
+        tweet._url = `https://twitter.com/${screenName}/status/${tweetId}`
+        tweet.html = signaturePosition > 0
+          ? tweet.html.slice(0, signaturePosition)
+          : tweet.html
+  
+        resolve(tweet)  
+      }
+      catch (err) {
+        reject(err)
+      }      
     })
   })
 }
@@ -62,30 +69,37 @@ module.exports = () => {
       url: 'https://api.twitter.com/oauth2/token'
     }, (err, response, body) => {
       if (err) {
-        return reject(err)
+        return resolve(`RESOLVE`);
+        // return reject(err)
       }
 
-      const parsedBody = JSON.parse(body)
+      try{
+
+        const parsedBody = JSON.parse(body)
     
-      request.get({
-        headers: {
-          Authorization: `Bearer ${parsedBody.access_token}`
-        },
-        url: `https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${SCREEN_NAME}&exclude_replies=true&trim_user=true&count=100&tweet_mode=extended`
-      }, (err, response, body) => {
-        const tweets = JSON.parse(body).filter(tweet => !tweet.retweeted_status)
-        const oembeds = tweets.map(tweet => getOembed(SCREEN_NAME, tweet))
-
-        Promise.all(oembeds).then(data => {
-          fs.writeFile(fullCachePath, JSON.stringify(data), err => {
-            if (err) {
-              console.log('Could not write tweets to local cache:', err)
-            }
-          })
-
-          resolve(data)
-        }).catch(reject)
-      })
+        request.get({
+          headers: {
+            Authorization: `Bearer ${parsedBody.access_token}`
+          },
+          url: `https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${SCREEN_NAME}&exclude_replies=true&trim_user=true&count=100&tweet_mode=extended`
+        }, (err, response, body) => {
+          const tweets = (Object.values)(JSON.parse(body)).filter(tweet => !tweet.retweeted_status)
+          const oembeds = tweets.map(tweet => getOembed(SCREEN_NAME, tweet))
+  
+          Promise.all(oembeds).then(data => {
+            fs.writeFile(fullCachePath, JSON.stringify(data), err => {
+              if (err) {
+                console.log('Could not write tweets to local cache:', err)
+              }
+            })
+  
+            resolve(data)
+          }).catch(reject)
+        })
+      }
+      catch(err){
+        resolve(err)
+      }
     })
   })
 }
