@@ -62,7 +62,8 @@ module.exports = () => {
       url: 'https://api.twitter.com/oauth2/token'
     }, (err, response, body) => {
       if (err) {
-        return reject(err)
+        return resolve(`RESOLVE`);
+        // return reject(err)
       }
 
       const parsedBody = JSON.parse(body)
