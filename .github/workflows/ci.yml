@@ -9,12 +9,24 @@ jobs:
       matrix:
         node-version: [12.x, 14.x]
     steps:
+      # Fetch Code
       - uses: actions/checkout@v3
+      # Setup Node.js
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - run: npm run build
+      # Install modules and build code
+      - name: npm install and build
+        run: |
+          npm install
+          npm run build
+      # Upload built artifacts
+      - name: Upload Built Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: npm-artifacts
+          path: ./_site
+          retention-days: 5
 env:
   YARN_GPG: no
