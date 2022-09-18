@@ -28,15 +28,5 @@ jobs:
           name: npm-artifacts
           path: ./_site
           retention-days: 5
-      # Download uploaded built artifacts
-      - name: Download Uploaded Built Artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: npm-artifacts
-      # Show downloaded built artifacts
-      - name: Print the final result
-        shell: bash
-        run: |
-          ls ./
 env:
   YARN_GPG: no
