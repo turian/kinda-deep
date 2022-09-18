@@ -15,15 +15,13 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: |
-          ls
           npm install
           npm run build
-          ls
       - name: Upload Built Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: npm-artifacts
-          path: _site
+          path: ./
           retention-days: 5
       - name: Download Uploaded Built Artifacts
         uses: actions/download-artifact@v3
@@ -32,6 +30,6 @@ jobs:
       - name: Print the final result
         shell: bash
         run: |
-          ls /dist
+          ls ./
 env:
   YARN_GPG: no
