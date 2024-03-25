@@ -16,9 +16,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@11ty/eleventy-plugin-syntaxhighlight": "^1.0.5",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^2.0.1",
     "@sindresorhus/slugify": "^0.10.0",
-    "markdown-it": "^10.0.0",
+    "markdown-it": "^13.0.2",
     "markdown-it-anchor": "^5.2.5",
     "moment": "^2.22.2",
     "node-sass": "^4.12.0",
